@@ -1,14 +1,18 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.23;
 
 contract Looper {
-    function doStuff(uint256 i) private pure returns (uint256) {
-        return i;
+
+    function loop() external pure {
+        for (uint256 i = 100; i != 0; ) {
+            doStuff(i);
+            assembly {
+                i := sub(i, 1)
+            }
+        }
     }
 
-    function loop() public pure {
-        for (uint256 i = 0; i < 100; i++) {
-            doStuff(i);
-        }
+    function doStuff(uint256 i) private pure returns (uint256) {
+        return i;
     }
 }
